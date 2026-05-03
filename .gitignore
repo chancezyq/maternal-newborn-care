@@ -1,2 +1,15 @@
 # Ignore system clutter
 .DS_Store
+Thumbs.db
+
+# Editor / IDE caches
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Local scratch / private drafts (kept out of version control)
+scratch/
+drafts/
+*.local.md

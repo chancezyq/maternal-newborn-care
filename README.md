@@ -1,18 +1,21 @@
 # maternal-newborn-care
 
-一个面向**产后 0–42 天家庭**的母婴照护 skill。  
+一个面向**产后 0–42 天家庭**的母婴照护 skill。
 它主要服务三类人：
 
 - 产妇
 - 刚出生的新生儿
 - 家属 / 主要照护者
 
+> **当前版本：0.2.0**（详见 `CHANGELOG.md`）
+> 0.2.0 在 0.1.0 风险分流框架的基础上，补齐了家庭日常照护面：新生儿日常清洁、产妇日常生活护理、家庭分工与值班、居家环境安全、民间偏方避坑、每日交接式摘要。
+
 这个 skill 的目标很直接：
 
 **在家庭最混乱的时候，给出最清楚、最安全、最能落地的照护建议。**
 
-它不是拿来炫医学术语的。  
-它也不是单纯宝宝打卡工具。  
+它不是拿来炫医学术语的。
+它也不是单纯宝宝打卡工具。
 它更像一个会做**风险分流 + 家庭行动指导 + 信息整理**的母婴照护助手。
 
 ---
@@ -23,9 +26,11 @@
 
 ### 产妇相关
 - 恶露变多、颜色变化、异味
-- 发热、腹痛、伤口不适
+- 发热、腹痛、伤口不适（顺产侧切 / 剖宫产）
 - 乳房胀痛、堵奶、哺乳疼痛
 - 疲惫、情绪崩溃、产后抑郁风险
+- 月子期日常护理：洗头洗澡、通风保暖、下床活动、产后出汗
+- 产后饮食、月子餐安排、补水与哺乳期饮食
 
 ### 新生儿相关
 - 一直睡、难叫醒
@@ -33,18 +38,23 @@
 - 尿布减少
 - 黄疸加重
 - 体温异常、精神反应差
+- 日常清洁：洗澡、脐带、红屁屁、托抱、抚触、奶具/吸奶器消毒
+- 配方奶、混合喂养、奶瓶清洁与冲调安全
 
 ### 家属协作相关
 - 不知道先看妈妈还是先看宝宝
 - 家里人很慌，分不清先做什么
 - 去医院前不知道怎么整理重点
 - 想快速做一个过去 24 小时摘要
+- 家庭照护分工、夜间值班、红旗症状决策人安排
+- 居家环境安全（室温、安全睡眠、洗手、探访、烟味、宠物、烫伤、跌落）
+- 识别和劝阻常见错误做法 / 民间偏方
 
 ---
 
 ## 它不做什么
 
-这个 skill **不替代医生诊断**。  
+这个 skill **不替代医生诊断**。
 它也**不代替急救**。
 
 它不会做这些事：
@@ -103,7 +113,7 @@
 3. **再给接下来要观察的点**
 4. **最后给升级边界**
 
-也就是说，不要只回答“正常/不正常”。  
+也就是说，不要只回答“正常/不正常”。
 而要回答：
 
 - 现在更像什么
@@ -144,54 +154,84 @@
 ## 目录结构
 
 ### 核心定义
-- `SKILL.md`  
+- `SKILL.md`
   skill 主定义，包含定位、适用范围、风险分级、回答模板骨架、日志字段建议和安全规则。
 
 ### 模板
-- `templates/core/answer-normal.md`  
+- `templates/core/answer-normal.md`
   普通照护回答模板
-- `templates/core/answer-urgent.md`  
+- `templates/core/answer-urgent.md`
   高风险升级回答模板
-- `templates/core/daily-summary.md`  
+- `templates/core/daily-summary.md`
   每日摘要模板
 
 ### 症状模板
-- `templates/scenarios/lochia.md`  
+- `templates/scenarios/lochia.md`
   恶露异常模板
-- `templates/scenarios/breast-pain-mastitis.md`  
+- `templates/scenarios/breast-pain-mastitis.md`
   乳房胀痛 / 堵奶 / 乳腺炎模板
-- `templates/scenarios/jaundice.md`  
+- `templates/scenarios/jaundice.md`
   新生儿黄疸模板
-- `templates/scenarios/poor-feeding-low-urine.md`  
+- `templates/scenarios/poor-feeding-low-urine.md`
   喂养差 / 尿量减少模板
-- `templates/scenarios/fever.md`  
+- `templates/scenarios/fever.md`
   产妇 / 新生儿发热模板
-- `templates/scenarios/postpartum-mood.md`  
+- `templates/scenarios/postpartum-mood.md`
   产后情绪崩溃 / 抑郁预警模板
+- `templates/scenarios/crying-triage.md`
+  新生儿哭闹分流模板
+- `templates/scenarios/holding-baby.md`
+  托抱 / 头颈支撑安全模板
+- `templates/scenarios/newborn-bath.md`
+  新生儿洗澡 / 脐带护理模板
+- `templates/scenarios/formula-prep.md`
+  配方奶冲调与奶具清洁模板
+- `templates/scenarios/postpartum-diet-principles.md`
+  产后饮食原则模板
+- `templates/scenarios/postpartum-meal-plan-first-7-days.md`
+  产后第 1 周月子餐参考模板
 
 ### 参考资料
-- `references/red-flags-mother.md`  
+- `references/red-flags-mother.md`
   产妇红旗信号参考
-- `references/red-flags-newborn.md`  
+- `references/red-flags-newborn.md`
   新生儿红旗信号参考
-- `references/logging-schema.md`  
+- `references/logging-schema.md`
   母婴日志字段参考
 
 ### 验收与测试
-- `TESTCASES.md`  
+- `TESTCASES.md`
   基础验收测试题
-- `EXAMPLES.md`  
+- `EXAMPLES.md`
   参考问答
-- `RUNBOOK.md`  
+- `RUNBOOK.md`
   手动测试执行流程
-- `SCORING.md`  
+- `SCORING.md`
   评分标准
-- `BOUNDARY_GOLD_RESPONSES.md`  
+- `BOUNDARY_GOLD_RESPONSES.md`
   边界 case 理想回答标准稿
-- `PITFALLS.md`  
+- `PITFALLS.md`
   常见翻车点总结
-- `REGRESSION_CHECKLIST.md`  
+- `REGRESSION_CHECKLIST.md`
   回归测试清单
+- `MASTER_TEST_PLAN.md`
+  整体测试计划与轮次安排
+- `EXPANSION_TESTCASES.md` / `EXPANSION_CALIBRATION.md`
+  v0.2.0 扩展场景的测试用例与校准记录
+- `FIRST_ROUND_LOG_TEMPLATE.md`
+  人工评测记录模板
+- `FIRST_ROUND_RESULTS.md` / `SECOND_ROUND_RESULTS.md` / `THIRD_ROUND_RESULTS.md`
+  历次回归 / 评测的结果汇总
+- `SECOND_ROUND_TEST_PACK.md` / `THIRD_ROUND_TEST_PACK.md`
+  第二、三轮专项测试题包
+- `SKILL_EVALUATION.md`
+  阶段性 skill 评估记录
+- `RELEASE_RECOMMENDATION.md`
+  发布建议
+- `PRE_BIRTH_FREEZE_CHECKLIST.md`
+  上线/冻结前自检清单
+- `CHANGELOG.md`
+  版本变更记录
 
 ---
 
@@ -200,7 +240,7 @@
 推荐测试顺序：
 
 ### 第一步：基础 case
-先跑 `TESTCASES.md`。  
+先跑 `TESTCASES.md`。
 看它能不能稳定做到：
 
 - 先分风险
@@ -220,7 +260,7 @@
 - 情绪危机被包装成“只是累”
 
 ### 第三步：评分
-用 `SCORING.md` 打分。  
+用 `SCORING.md` 打分。
 重点不是句子漂不漂亮，而是：
 
 - 分级准不准
@@ -228,7 +268,7 @@
 - 边界清不清
 
 ### 第四步：回归
-每次改完 prompt 或模板后，跑 `REGRESSION_CHECKLIST.md`。  
+每次改完 prompt 或模板后，跑 `REGRESSION_CHECKLIST.md`。
 至少保证：
 
 - A 组冒烟测试全过
@@ -276,14 +316,13 @@
 
 ## 后续迭代方向
 
-后面可以继续补这些能力：
+0.2.0 已经把家庭日常照护面铺开。后续可以继续补这些能力：
 
-- 更多症状模板
-- 更结构化的日志输出
-- 家属分工建议模板
-- 去医院前摘要模板增强
-- 多轮追问时的风险升级逻辑
-- 不同产后阶段的更细化建议
+- 更多边界症状模板（如低体重儿、早产儿场景）
+- 多轮追问下的风险升级稳定性
+- 更结构化的日志输出 / 可复用字段
+- 不同产后阶段（0–3 天 / 4–7 天 / 第 2 周 / 2–6 周）的分阶段建议细化
+- 去医院前摘要模板的进一步增强
 
 ---
 
@@ -302,5 +341,5 @@
 
 ## 一句话总结
 
-`maternal-newborn-care` 不是一个“讲很多知识”的 skill。  
+`maternal-newborn-care` 不是一个“讲很多知识”的 skill。
 它是一个在母婴家庭最慌最乱的时候，帮人**分风险、给动作、盯边界、整理重点**的 skill。
